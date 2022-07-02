@@ -7,11 +7,13 @@ public class Distributor
     List<Billing> billing = new();
     public Distributor()
     {
-        Console.WriteLine("----- Distribuitor -----");
+        Console.WriteLine("------ Distribuitor ------");
         Console.WriteLine("");
 
-        string FilePath = "../dados.json";
+        string FilePath = "C:/Users/matt_/TargetQuestions/dados.json";
         billing = JsonConvert.DeserializeObject<List<Billing>>(File.ReadAllText(FilePath));
+
+        Console.WriteLine("");
     }
 
     public void pt1()
@@ -64,6 +66,7 @@ public class Distributor
                 days++;
         }
 
+        Console.WriteLine($"Average value: {((float)helper)}");
         Console.WriteLine($"Number of days that have values equal to or greater than average profit: {days}");
     }
 
@@ -79,32 +82,33 @@ public class Distributor
 
 
         // State,  average, percent
-        List<Tuple<string, decimal, decimal>> AverageByState = new();
+        List<Tuple<string, decimal, float>> AverageByState = new();
         decimal total = 0;
 
-        AverageByState.Add(new Tuple<string, decimal, decimal>("SP", 67836.43M, 0));
-        AverageByState.Add(new Tuple<string, decimal, decimal>("RJ", 36678.66M, 0));
-        AverageByState.Add(new Tuple<string, decimal, decimal>("MG", 29229.88M, 0));
-        AverageByState.Add(new Tuple<string, decimal, decimal>("ES", 27165.48M, 0));
-        AverageByState.Add(new Tuple<string, decimal, decimal>("Outros", 19849.53M, 0));
+        AverageByState.Add(new Tuple<string, decimal, float>("SP", 67836.43M, 0));
+        AverageByState.Add(new Tuple<string, decimal, float>("RJ", 36678.66M, 0));
+        AverageByState.Add(new Tuple<string, decimal, float>("MG", 29229.88M, 0));
+        AverageByState.Add(new Tuple<string, decimal, float>("ES", 27165.48M, 0));
+        AverageByState.Add(new Tuple<string, decimal, float>("Outros", 19849.53M, 0));
 
         foreach (var a in AverageByState)
         {
             total += a.Item2;
         }
-        foreach (var b in AverageByState)
+        for (int i = 0; i < AverageByState.Count; i++)
         {
+            Tuple<string, decimal, float>? b = AverageByState[i];
             var index = AverageByState.FindIndex(x => x == b);
 
-            AverageByState[index] = new Tuple<string, decimal, decimal>
-            (b.Item1, b.Item2, ((b.Item2 * 100) / total));
+            AverageByState[index] = new Tuple<string, decimal, float>
+            (b.Item1, b.Item2, (float)(b.Item2 / total));
         }
 
         Console.WriteLine("Percentages: ");
         foreach (var x in AverageByState)
         {
             Console.WriteLine
-            ($"    State(s): {x.Item1} - Average profit: {x.Item2} - Profit share: {x.Item3}");
+            ($"    State(s): {x.Item1} - Average profit: {x.Item2} - Profit share: {(x.Item3*100).ToString("00.00")}%");
         }
     }
 

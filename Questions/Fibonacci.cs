@@ -6,9 +6,10 @@ public class Fibonacci
 
     public Fibonacci()
     {
-        Console.WriteLine("---- Fibonacci ----");
+        Console.WriteLine();
+        Console.WriteLine("------ Fibonacci ------");
         Console.WriteLine("");
-        Console.WriteLine("Digite um valor para acharmos na sequencia fibonacci (ou não); 'X' para sair");
+        Console.WriteLine("Enter a value to find it in the fibonacci sequence (or not); 'X' to exit");
 
         string? value = Console.ReadLine();
 
@@ -27,23 +28,36 @@ public class Fibonacci
     public void Calc()
     {
         //F(n) = F(n-1) + F(n-2);
-        int Counter = 100;
-        string Sequence = "";
+        int QuantityOfValues = 45;
+        long[] Sequence = new long[QuantityOfValues];
+        bool Exists = false;
 
         //generating the sequence with 100 values;
-        int A = 0, B = 1, C = 0;
-        for (int i = 2; i < Counter; i++)
+        long A = 0, B = 1, C = 0, Index = 0;
+        for (int i = 0; i < QuantityOfValues; i++)
         {
             C = A + B;
-            Sequence += $" {C} ";
+            Sequence[Index] = C;
             A = B;
             B = C;
+            Index++;
         }
 
-        if (Sequence.Contains(ValueToFind.ToString()))
-            Console.WriteLine("The value exists on the Fibonacci Sequence");
-        else
+        foreach (var i in Sequence)
         {
+
+            if (i == ValueToFind)
+            {
+                Console.WriteLine();
+                Console.WriteLine("The value exists on the Fibonacci Sequence");
+                Exists = true;
+                break;
+            }
+        };
+
+        if (Exists == false)
+        {
+            Console.WriteLine();
             Console.WriteLine("The value DOES NOT exists on the Fibonacci Sequence");
         }
     }
