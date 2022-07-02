@@ -10,7 +10,8 @@ public class Distributor
         Console.WriteLine("------ Distribuitor ------");
         Console.WriteLine("");
 
-        string FilePath = "C:/Users/matt_/TargetQuestions/dados.json";
+        // Insert the full path here
+        string FilePath = "C:/.../TargetQuestions/dados.json";
         billing = JsonConvert.DeserializeObject<List<Billing>>(File.ReadAllText(FilePath));
 
         Console.WriteLine("");
@@ -108,7 +109,7 @@ public class Distributor
         foreach (var x in AverageByState)
         {
             Console.WriteLine
-            ($"    State(s): {x.Item1} - Average profit: {x.Item2} - Profit share: {(x.Item3*100).ToString("00.00")}%");
+            ($"    State(s): {x.Item1} - Average profit: {x.Item2} - Profit share: {(x.Item3 * 100).ToString("00.00")}%");
         }
     }
 
